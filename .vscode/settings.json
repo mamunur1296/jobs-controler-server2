@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+      "**/path/to/exclude": true,
+      "**/another/path/to/exclude": true
+    }
+  }
