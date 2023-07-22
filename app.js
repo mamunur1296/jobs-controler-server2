@@ -8,6 +8,7 @@ const dbconnect = require('./middleware/common/dbConnect/dbconnect');
 const { notFoundHandler } = require('./middleware/common/errorHandelar/notfoundHandelar');
 const { errorHandler } = require('./middleware/common/errorHandelar/defoultHandelar');
 const allFileuplodes= require('./routers/allFileUploder/allFileuplodes');
+const userLogin= require('./routers/login/userLogin');
 
 
 
@@ -34,6 +35,7 @@ app.use(cookieParser(process.env.COOKI_SECTAT))
 //     res.send("Woilcome to our would")
 // })
 app.use("/files",allFileuplodes)
+app.use("/login",userLogin)
 
 // 404 not found handelar
 app.use(notFoundHandler) 
