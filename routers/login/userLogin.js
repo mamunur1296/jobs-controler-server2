@@ -1,19 +1,16 @@
-const axios = require('axios');
+// Import necessary modules and dependencies
 const express = require('express');
-const router=express.Router();
 
-router.post("/", async (req,res)=>{
-    try {
-        // Make the API request using axios
-        const requestData = req.body;
-        const apiUrl = 'https://account.uipath.com/oauth/token'; 
-        const response = await axios.post(apiUrl, requestData);
-        // Handle the API response and send it back to the client
-        res.json(response.data);
-      } catch (error) {
-        // Handle any errors that occurred during the API request
-        res.status(500).json({ error: 'An error occurred while fetching the API data' });
-      }
-})
+// Import the getToken function from the login controller
+const { getToken } = require('../../controler/loginControler/getToken');
 
-module.exports=router;
+
+// Create a new router instance
+const router = express.Router();
+
+// Route to handle the login request and get the access token
+router.post('/', getToken);
+
+// Export the router to be used in other parts of the application
+module.exports = router;
+

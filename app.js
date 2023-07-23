@@ -1,48 +1,48 @@
-// external emport 
+// External Imports
 const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-//internal emprt
+
+// Internal Imports
 const dbconnect = require('./middleware/common/dbConnect/dbconnect');
 const { notFoundHandler } = require('./middleware/common/errorHandelar/notfoundHandelar');
 const { errorHandler } = require('./middleware/common/errorHandelar/defoultHandelar');
-const allFileuplodes= require('./routers/allFileUploder/allFileuplodes');
-const userLogin= require('./routers/login/userLogin');
+const allFileuplodes = require('./routers/allFileUploder/allFileuplodes');
+const userLogin = require('./routers/login/userLogin');
+const uiPath = require('./routers/ui-path/ui-path');
 
+// Create an Express application
+const app = express();
+dotenv.config();
 
+// Database Connector
+dbconnect();
 
-// internal import
-const app=express()
-dotenv.config()
-
-
-
-//DataBase Connectore 
-dbconnect()
-
-
-
-//request parcer 
+// Request parsers and middleware setup
 app.use(cors());
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(cookieParser(process.env.COOKI_SECTAT))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.COOKI_SECTAT));
 
+// Routing Setup
+// Uncomment this block for a simple response on the root path
+// app.use("/", (req, res) => {
+//     res.send("Welcome to our world");
+// });
 
-//Routing satep 
-// app.use("/",(req,res)=>{
-//     res.send("Woilcome to our would")
-// })
-app.use("/files",allFileuplodes)
-app.use("/login",userLogin)
+// Mount the routers for specific paths
+app.use("/files", allFileuplodes); // Router for file uploads and data handling
+app.use("/login", userLogin); // Router for user login and authentication
+app.use("/ui-path", uiPath); // Router for user login and authentication
 
-// 404 not found handelar
-app.use(notFoundHandler) 
-// defoult error handelar 
-app.use(errorHandler)
+// 404 Not Found Handler
+app.use(notFoundHandler);
 
+// Default Error Handler
+app.use(errorHandler);
 
-app.listen(process.env.PORT ,()=> {
-    console.log(`this app are raning port ${process.env.PORT}`);
-})
+// Start the Express app and listen on the specified port
+app.listen(process.env.PORT, () => {
+    console.log(`This app is running on port ${process.env.PORT}`);
+});
