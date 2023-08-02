@@ -4,7 +4,7 @@ const getAllfile=async (req, res) => {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${req.body.token}`,
-            'X-UIPATH-OrganizationUnitId': req.body.token,
+            'X-UIPATH-OrganizationUnitId': req.body.importId,
             'Content-Type': 'application/json'
           }
         });
@@ -12,8 +12,14 @@ const getAllfile=async (req, res) => {
           throw new Error('Request failed');
         }
         const responseData = await response.json();
-        res.json(responseData) ;
+
+        if(responseData.value.length > 0){
+          res.json(responseData) ;
+        }
       } catch (error) {
+        res.json({
+          value:""
+        }) ;
         console.log(error);
       }    
   }

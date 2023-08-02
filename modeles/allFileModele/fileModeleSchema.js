@@ -10,21 +10,27 @@ const mongoose = require('mongoose');
  */
 const teamMemberSchema = new mongoose.Schema({
     name: {
-        type: String,
+      type: String,
     },
     email: {
-        type: String,
+      type: String,
     },
     phone: {
-        type: Number,
+      type: Number,
     },
     gender: {
-        type: String,
+      type: String,
     },
     address: {
-        type: String,
-    }
-});
+      type: String,
+    },
+  },
+  {
+    collation: {
+      locale: 'en_US',
+      strength: 2,
+    },
+  });
 
 /**
  * Create the TeamMember model using the Mongoose schema.

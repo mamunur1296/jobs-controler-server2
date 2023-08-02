@@ -15,7 +15,7 @@ const TeamMember = require('../../modeles/allFileModele/fileModeleSchema');
 const postxlsxFiledata = async (req, res) => {
     try {
         // Log the uploaded request data
-        console.log(req);
+
 
         // Read the uploaded Excel file and extract data
         const workbook = xlsx.read(req.file.buffer);

@@ -4,7 +4,7 @@ const getToken= async (req,res)=>{
     try {
         // Make the API request using axios
         const requestData = req.body;
-        console.log(req.body);
+
         const response = await axios.post(process.env.TOKEN_GENARAT, requestData);
         // Handle the API response and send it back to the client
         res.json(response.data);

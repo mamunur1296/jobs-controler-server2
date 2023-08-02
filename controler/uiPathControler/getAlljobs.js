@@ -12,7 +12,9 @@ const getAllJobs= async (req,res)=>{
           throw new Error('Request failed');
         }
         const responseData = await response.json();
-        res.json(responseData) ;
+        if(responseData.value.length > 0){
+          res.json(responseData) ;
+        }
       } catch (error) {
         console.log(error);
       }  

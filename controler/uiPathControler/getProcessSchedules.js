@@ -1,6 +1,5 @@
 const getProcessSchedules= async (req,res)=>{
     try {
-        console.log("this is processSchedules");
         const response = await fetch("https://cloud.uipath.com/studeyzeqpsn/Prod/orchestrator_/odata/ProcessSchedules", {
           method: 'GET',
           headers: {
@@ -13,7 +12,9 @@ const getProcessSchedules= async (req,res)=>{
           throw new Error('Request failed');
         }
         const responseData = await response.json();
-        res.json(responseData) ;
+        if(responseData.value.length > 0){
+          res.json(responseData) ;
+        }
       } catch (error) {
         console.log(error);
       }  

@@ -3,6 +3,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const requestIp = require('request-ip');
+const bodyParser = require('body-parser');
+const useragent = require('express-useragent');
 
 // Internal Imports
 const dbconnect = require('./middleware/common/dbConnect/dbconnect');
@@ -11,6 +14,9 @@ const { errorHandler } = require('./middleware/common/errorHandelar/defoultHande
 const allFileuplodes = require('./routers/allFileUploder/allFileuplodes');
 const userLogin = require('./routers/login/userLogin');
 const uiPath = require('./routers/ui-path/ui-path');
+const loginRouter= require("./user-authentication-system/routes/loginRouter");
+const corsConfig = require('./utillities/cors');
+const { generateOTP } = require('./user-authentication-system/utils/otpGenarator');
 
 // Create an Express application
 const app = express();
@@ -20,21 +26,21 @@ dotenv.config();
 dbconnect();
 
 // Request parsers and middleware setup
-app.use(cors());
+app.use(cors(corsConfig))
+app.use(bodyParser.json());
+app.use(useragent.express());
 app.use(express.json());
+app.use(requestIp.mw());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKI_SECTAT));
 
 // Routing Setup
-// Uncomment this block for a simple response on the root path
-// app.use("/", (req, res) => {
-//     res.send("Welcome to our world");
-// });
 
 // Mount the routers for specific paths
 app.use("/files", allFileuplodes); // Router for file uploads and data handling
 app.use("/login", userLogin); // Router for user login and authentication
 app.use("/ui-path", uiPath); // Router for user login and authentication
+app.use("/authentication", loginRouter); // Router for user login and authentication
 
 // 404 Not Found Handler
 app.use(notFoundHandler);

@@ -13,12 +13,12 @@ const TeamMember = require("../../modeles/allFileModele/fileModeleSchema");
 const postJsonFiledata = async (req, res) => {
     try {
         // Log the uploaded file data
-        console.log(req.file);
+
 
         // Read the uploaded file data and convert it to a JSON object
         const fileData = req.file.buffer.toString('utf-8');
         const jsonData = JSON.parse(fileData);
-        console.log(jsonData);
+ 
 
         // Save the JSON data to MongoDB using the TeamMember model schema
         await TeamMember.create(jsonData);
