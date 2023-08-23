@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const mobileLogin = async (req, res, next) => {
   const mobileNumber = req.body.number;
   const user = req.user;
+  console.log(mobileNumber);
   if (!mobileNumber) {
     return res.status(401).json("Unauthorized");
   }

@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 const isLoginUser = (req, res, next) => {
+
     // Get the token from the request headers or cookies (based on how you send the token from the client)
     const token = req.headers.authorization || req.cookies.jwt;
     if (!token) {
+      console.log(token);
       return res.status(401).json({ message: 'No token provided. Please log in.' });
     }
   

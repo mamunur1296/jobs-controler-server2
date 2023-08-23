@@ -1,7 +1,7 @@
 const {  check, validationResult } = require("express-validator");
 const { v4: uuidv4 } = require('uuid');
 const People = require("../models/peopleSchema");
-
+const si = require('systeminformation');
 
 const validateRegister = [
   check('name')
@@ -55,9 +55,11 @@ const validateRegister = [
       const deviceId = uuidv4();
       // Set the device ID as an HTTP-only cookie with a 30-day expiration (adjust as needed)
       const cookieOptions = {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        withCredentials: true
+        withCredentials: true , 
+        sameSite: "None",
+        secure: true,
+        maxAge: 365 * 24 * 60 * 60 * 1000, // 365 days in milliseconds
       };
   
       res.cookie('deviceId', deviceId, cookieOptions);
@@ -71,9 +73,11 @@ const isBrowserID=(req,res,next)=>{
     const browserID = uuidv4();
     // Set the device ID as an HTTP-only cookie with a 30-day expiration (adjust as needed)
     const cookieOptions = {
-      maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      withCredentials: true
+      sameSite: "None",
+      withCredentials: true , 
+      secure: true,
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 365 days in milliseconds
     };
 
     res.cookie('browserID', browserID, cookieOptions);
@@ -81,6 +85,17 @@ const isBrowserID=(req,res,next)=>{
 
   next();
 }
+// const isUserValidation = async (req, res, next) => {
+//   const users = await People.find({});
+//   const motherboardData = await si.baseboard();
+//   console.log(motherboardData);
+//   if (users.some(user => user?.userDevInfo?.serial === motherboardData?.serial )) {
+//     return res.status(403).json({ message: 'Unauthorized: you alrady regestered ' });
+//   }
+
+//   next();
+// };
+
 
 const idRagesterValidatorError = (req, res, next) => {
   const errors = validationResult(req);
@@ -101,5 +116,5 @@ module.exports={
     validateRegister,
     idRagesterValidatorError,
     isDeviseID,
-    isBrowserID
+    isBrowserID 
 }

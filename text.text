@@ -1,0 +1,236 @@
+
+// Routing Setup
+// async function fetchSystemInfo() {
+//     try {
+//       const response = await axios.get('http://ipinfo.io/json');
+//       const data = response.data;
+//       console.log('System Information:', data);
+//     } catch (error) {
+//       console.error('Error fetching system information:', error);
+//     }
+//   }
+
+
+
+
+
+
+
+// var serialNumber = require('serial-number');
+// const os = require('os');
+// const si = require('systeminformation');
+// app.get('/', async (req, res) => {
+//     try {
+//       const systemInfo = {
+//         manufacturer: os.version(),
+//         model: os.uptime(),
+//         version: os.userInfo(),
+//         serial: os.type(),
+//         tmpdir: os.tmpdir(),
+//         release: os.release(),
+//         platform: os.platform(),
+//         networkInterfaces: os.networkInterfaces(),
+//         hostname: os.hostname(),
+//         getPriority: os.getPriority(),
+//         endianness: os.endianness(),
+//         cpus: os.cpus(),
+//         availableParallelism: os.availableParallelism(),
+//         arch: os.arch(),
+//         assetTag: os.totalmem()
+//       };
+
+//       console.log('System Information:', systemInfo);
+  
+//       // Save system information in a cookie
+//       res.cookie('systemInfo', JSON.stringify(systemInfo));
+  
+//       res.json({ message: 'System Information:', data: systemInfo });
+//     } catch (error) {
+//       console.error('Error:', error);
+//       res.status(500).json({ error: 'Error retrieving system information' });
+//     }
+//   });
+//   app.get('/data', (req, res) => {
+//     try {
+//       const rawData = req.cookies.motherboardData;
+      
+//       if (!rawData) {
+//         return res.status(400).json({ error: 'Motherboard data not found in cookies' });
+//       }
+      
+//       const parsedData = JSON.parse(rawData);
+//       console.log('Parsed Data:', parsedData);
+      
+//       res.json({
+//         message:'parcer data ',
+//         data:parsedData
+//       });
+//     } catch (error) {
+//       console.error('Error:', error);
+//       res.status(500).json({ error: 'Error parsing motherboard data from cookies' });
+//     }
+//   });
+  
+
+
+
+
+
+
+
+
+
+
+
+
+// const  serialNumber = require('serial-number');
+// app.get('/', async (req, res) => {
+//     try {
+//         serialNumber(function (err, value) {
+//             res.json({ message: 'Motherboard Data:', data: value });
+//            });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Error retrieving motherboard information' });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+// const { exec } = require('child_process');
+
+// app.get('/', (req, res) => {
+//     // Check if dmidecode is available by attempting to execute it
+//     exec('dmidecode -t 0', { shell: '/bin/bash' }, (error, stdout, stderr) => {
+//         if (error) {
+//             console.error(error);
+//             res.status(500).json({ error: 'Error retrieving BIOS information' });
+//             return;
+//         }
+        
+//         // Parse the dmidecode output
+//         const biosInfo = parseDmiDecodeOutput(stdout);
+        
+//         console.log(biosInfo);
+//         res.json({ message: 'BIOS Information:', data: biosInfo });
+//     });
+// });
+
+// function parseDmiDecodeOutput(output) {
+//     // Implement your parsing logic here based on the output format
+//     // Return the extracted information as an object
+//     return {};
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const si = require('systeminformation');
+
+// app.get('/', async (req, res) => {
+//     try {
+//         // Get information about the incoming request
+//         const requestInfo = {
+//             ip: req.ip,
+//             userAgent: req.get('User-Agent'),
+//             timestamp: new Date().toISOString()
+//         };
+
+//         console.log('Request Information:', requestInfo);
+
+//         // Get system information using systeminformation (for demonstration purposes)
+//         const systemInfo = await si.system();
+//         console.log('System Information:', systemInfo);
+
+//         res.json({ message: 'Request and System Information:', requestInfo, systemInfo });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Error processing request' });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+// const { exec } = require('child_process');
+
+// function getMotherboardInfo(callback) {
+//   exec('dmidecode, -t, baseboard', (error, stdout, stderr) => {
+//     if (error) {
+//       console.error('Error:', error.message);
+//       callback(error, null);
+//       return;
+//     }
+
+//     const lines = stdout.split('\n');
+//     const motherboardInfo = {};
+
+//     lines.forEach(line => {
+//       const [key, value] = line.split(':').map(part => part.trim());
+//       if (key && value) {
+//         motherboardInfo[key] = value;
+//       }
+//     });
+
+//     callback(null, motherboardInfo);
+//   });
+// }
+
+// getMotherboardInfo((error, motherboardData) => {
+//   if (!error) {
+//     console.log('Motherboard Information:', motherboardData);
+//   } else {
+//     console.error('Error retrieving motherboard information:', error);
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+

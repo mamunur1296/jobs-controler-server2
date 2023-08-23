@@ -16,7 +16,10 @@ const userLogin = require('./routers/login/userLogin');
 const uiPath = require('./routers/ui-path/ui-path');
 const loginRouter= require("./user-authentication-system/routes/loginRouter");
 const corsConfig = require('./utillities/cors');
-const { generateOTP } = require('./user-authentication-system/utils/otpGenarator');
+const { default: axios } = require('axios');
+
+
+
 
 // Create an Express application
 const app = express();
@@ -34,7 +37,10 @@ app.use(requestIp.mw());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKI_SECTAT));
 
-// Routing Setup
+
+app.get('/', (req, res) => {
+    res.send(`Server is raning .`)
+  })
 
 // Mount the routers for specific paths
 app.use("/files", allFileuplodes); // Router for file uploads and data handling

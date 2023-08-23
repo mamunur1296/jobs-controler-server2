@@ -25,6 +25,7 @@ const getUsers= async(req,res, next)=>{
 
 const getLoginUsers = (req, res) => {
   const user = req.user;
+
   
   if (!user) {
     // If the user object is not available in req, it means the user is not authenticated
@@ -71,7 +72,6 @@ const DeleteUsers = async (req, res, next) => {
     const deviceId = req.cookies.deviceId;
     const browserID = req.cookies.browserID;
     const userAgent = req.useragent;
-
     if (req.body) {
       newUser = new People({
         ...req.body,
@@ -136,11 +136,20 @@ const DeleteUsers = async (req, res, next) => {
         role:user.role,
         mobile:user.mobile,
         id:user._id,
-        phonVarify:user.otpVerified
+        phonVarify:user.otpVerified,
+        avatar:user.avatar,
+        ipAddress:user.ipAddress,
+        userAgent:user.userAgent,
       }
       // Step 6: Generate JWT token and set it in a cookie
       const token = jwt.sign(userSign, process.env.JWT_SECTAT, { expiresIn: '1h' });
-      res.cookie('jwt', token, { httpOnly: true });
+      const cookieOptions = {
+        httpOnly: true,
+        sameSite: "None",
+        withCredentials: true , 
+        secure: true,
+      };
+      res.cookie('jwt', token, cookieOptions);
   
       // Step 7: Send success message
       return res.status(200).json({ message: 'Login successful' });
@@ -150,10 +159,13 @@ const DeleteUsers = async (req, res, next) => {
   };
   
  const logout=  (req, res) => {
-    res.clearCookie('jwt',{
-      httpOnly: true,
-      secure: true,
-    });
+  const cookieOptions = {
+    httpOnly: true,
+    sameSite: "None",
+    withCredentials: true , 
+    secure: true,
+  };
+    res.clearCookie('jwt',cookieOptions);
 
     // Send a response indicating successful logout
     res.json({ message: 'Logged out successfully' });
